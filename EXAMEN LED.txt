@@ -1,0 +1,37 @@
+#pragma config FOSC = INTRC_NOCLKOUT
+#pragma config WDTE = OFF      
+#pragma config PWRTE = OFF      
+#pragma config MCLRE = OFF    
+#pragma config CP = OFF         
+#pragma config CPD = OFF      
+#pragma config BOREN = ON    
+#pragma config IESO = ON      
+#pragma config FCMEN = ON      
+#pragma config LVP = ON         
+#pragma config BOR4V = BOR40V  
+#pragma config WRT = OFF    
+
+#define _XTAL_FREQ 4000000
+#include <xc.h>
+
+void main(void) {
+    TRISBbits.TRISB7=0;
+    PORTBbits.RB7=0;
+    
+    T1CON=0B00110001;
+    INTCON=0B11000000;
+    TMR1=4000;
+    
+    while(1){
+        
+    }
+    return;
+}
+
+void __interrupt() int_timer1(){
+    if(PIR1bits.TMR1IF==1){
+        TMR1=4000;
+        PORTB^=(1<<1);
+        
+    } {
+}
